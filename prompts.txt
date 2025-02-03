@@ -1,0 +1,91 @@
+////////////////// LCD configuration //////////////////
+#include <LCD-I2C.h> //Author: Frank Häfele
+LCD_I2C lcd(0x27, 16, 2); 
+///////////////////////////////////////////////////////
+
+////////////////// Graphical sympols arrays ///////////
+uint8_t arrowDown[8] =
+{
+    0b00000,
+    0b00100,
+    0b00100,
+    0b00100,
+    0b11111,
+    0b01110,
+    0b00100,
+    0b00000,
+};
+
+uint8_t arrowUp[8] =
+{
+    0b00000,
+    0b00100,
+    0b01110,
+    0b11111,
+    0b00100,
+    0b00100,
+    0b00000,
+    0b00000,
+};
+
+uint8_t happy[8] =
+{
+    0b00000,
+    0b10001,
+    0b00000,
+    0b00000,
+    0b10001,
+    0b01110,
+    0b00000,
+    0b00000,
+};
+///////////////////////////////////////////////////////
+
+////////////////// Keypad configuration ///////////////
+#include <Keypad.h>
+const byte ROWS = 3; // Number of rows in the keypad (key 4 is disabled)
+const byte COLS = 1; // Number of columns in the keypad
+char keys[ROWS][COLS] = {
+  {'1'},
+  {'2'},
+  {'3'}
+};
+byte rowPins[ROWS] = {7,6,9};
+byte colPins[COLS] = {5};
+Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
+//////////////////////////////////////////////////////////
+
+////////////////// Define Hall Effect Sensor pins ////////
+#define hallEffect1 10
+#define hallEffect2 11
+#define hallEffect3 12
+//////////////////////////////////////////////////////////
+
+////////////////// Define limit switch pins /////////////
+#define LIMIT_SWITCH_UP A2
+#define LIMIT_SWITCH_DOWN A3
+//////////////////////////////////////////////////////////
+
+////////////////// Define motor driver pins //////////////
+#define enPin 3
+#define in1Pin 4
+#define in2Pin 2
+//////////////////////////////////////////////////////////
+
+////////////////// Define LED pins ///////////////////////
+#define RED_LED A0
+#define GREEN_LED A1
+//////////////////////////////////////////////////////////
+
+
+int desiredLevel = 1;
+int level = 1;
+bool motorStops;
+
+void setup() {
+
+    lcd.begin();
+    lcd.display();
+    lcd.backlight();
+
+    
